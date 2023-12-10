@@ -4,6 +4,8 @@ local Target = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
 Highlight.Name = "Highlight"
+local Gui = game.Players.LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
+local Button = ""
 
 if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
     game.ReplicatedStorage.PVP:FireServer()
@@ -40,7 +42,7 @@ while task.wait() do
                 HighlightClone.Name = "Highlight"
             end
 
-            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -275, 0), Target.HumanoidRootPart.Position)
+            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Target.HumanoidRootPart.Position)
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
@@ -54,5 +56,27 @@ while task.wait() do
         Target = nil
 
         NewTarget()
+    end
+
+    if Gui.Visible == true then
+        if string.find(Gui.TextFrame.ColorIndicator.Text, "Red") then
+            Button = "R"
+        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Orange") then
+            Button = "O"
+        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Yellow") then
+            Button = "Y"
+        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Green") then
+            Button = "G"
+        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Blue") then
+            Button = "B"
+        end
+
+        wait()
+
+        for i,v in pairs(Gui.Colors:GetChildren()) do
+            if string.find(Button.Text, Button) then
+                --press function
+            end
+        end
     end
 end
