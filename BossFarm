@@ -1,0 +1,58 @@
+getgenv().Autofarm = true
+local NPC = "Deku"
+local Target = nil
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Highlight = Instance.new("Highlight")
+Highlight.Name = "Highlight"
+
+if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
+    game.ReplicatedStorage.PVP:FireServer()
+end
+
+local function tween(part1, part2)
+    local tw = game.TweenService:Create(part1, TweenInfo.new((part1.Position - part2.Position).Magnitude / 550), {CFrame = part2})
+    tw:Play()
+    tw.Completed:Wait()
+end
+
+local function NewTarget()
+    if getgenv().Autofarm and Target == nil then
+        for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+            if v.Name == NPC then
+                Target = v
+            end
+        end
+    end
+end
+
+while task.wait() do
+    if getgenv().Autofarm and Target ~= nil and Target:FindFirstChild("Humanoid") and Target:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        if Target.Humanoid.Health ~= 0 then
+            LocalPlayer.Character.HumanoidRootPart.Anchored = false
+
+            workspace.CurrentCamera.CameraSubject = Target
+
+            if not Target.HumanoidRootPart:FindFirstChild("Highlight") then
+                local HighlightClone = Highlight:Clone()
+                HighlightClone.Adornee = Target
+                HighlightClone.Parent = Target.HumanoidRootPart
+                HighlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                HighlightClone.Name = "Highlight"
+            end
+
+            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -275, 0), Target.HumanoidRootPart.Position)
+        else
+            LocalPlayer.Character.HumanoidRootPart.Anchored = true
+
+            workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
+
+            Target = nil
+
+            NewTarget()
+        end
+    else
+        Target = nil
+
+        NewTarget()
+    end
+end
