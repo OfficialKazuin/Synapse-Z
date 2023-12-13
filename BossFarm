@@ -84,7 +84,7 @@ while task.wait() do
             if string.find(Button.Text, Button) then
                 v.Position = UDim2.new(0.5, 0, -2.25, 0)
             else
-                v.Position = UDim2.new(0.5, 0, 5, 0)
+                v.Position = UDim2.new(0, 0, 0, 0)
             end
         end
     end
