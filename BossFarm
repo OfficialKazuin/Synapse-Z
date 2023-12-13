@@ -28,6 +28,12 @@ local function NewTarget()
     end
 end
 
+Gui.AntiAutoClickScript.Disabled = true
+
+for i,v in pairs(Gui.Colors:GetChildren()) do
+    v.AnchorPoint = Vector2.new(0.5, 0.5)
+end
+
 while task.wait() do
     if getgenv().LevelFarm and Target ~= nil and Target:FindFirstChild("Humanoid") and Target:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         if Target.Humanoid.Health ~= 0 then
@@ -76,7 +82,9 @@ while task.wait() do
 
         for i,v in pairs(Gui.Colors:GetChildren()) do
             if string.find(Button.Text, Button) then
-                --press function
+                v.Position = UDim2.new(0.5, 0, -2.25, 0)
+            else
+                v.Position = UDim2.new(0.5, 0, 5, 0)
             end
         end
     end
