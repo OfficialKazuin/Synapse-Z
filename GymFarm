@@ -6,7 +6,7 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
     end
 end
 
-while task.wait() do
+game.RunService.Heartbeat:Connect(function()
     Punch:FireServer()
 
     local found = false
@@ -19,4 +19,4 @@ while task.wait() do
             end
         end
     until found
-end
+end)
