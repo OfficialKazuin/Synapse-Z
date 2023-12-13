@@ -1,1 +1,48 @@
+getgenv().Autofarm = true
+local Target = nil
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Punch
 
+for i,v in pairs(LocalPlayer.Character:GetChildren()) do
+    if v:FindFirstChild("E") then
+        Punch = v.E
+    end
+end
+
+if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
+    game.ReplicatedStorage.PVP:FireServer()
+end
+
+local function tween(part1, part2)
+    local tw = game.TweenService:Create(part1, TweenInfo.new((part1.Position - part2.Position).Magnitude / 550), {CFrame = part2})
+    tw:Play()
+    tw.Completed:Wait()
+end
+
+local function NewTarget()
+    if getgenv().Autofarm and Target == nil then
+        for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
+            if v.Name == "Weak Villain" and v.Humanoid.Health ~= 0 then
+                Target = v
+            end
+        end
+    end
+end
+
+while task.wait() do
+    if getgenv().Autofarm and Target ~= nil and Target:FindFirstChild("Humanoid") and Target:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        if Target.Humanoid.Health ~= 0 then
+            Punch:FireServer()
+
+            tween(LocalPlayer.Character.HumanoidRootPart, CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -5, 0), Target.HumanoidRootPart.Position))
+        else
+            Target = nil
+
+            NewTarget()
+        end
+    else
+        Target = nil
+
+        NewTarget()
+    end
+end
