@@ -12,7 +12,7 @@ game.RunService.Heartbeat:Connect(function()
     local found = false
     repeat
         for i,v in pairs(game.Workspace["Punching Bags"]:GetChildren()) do
-            if v.Name == "Punching bag" and math.random(1, 250) == 1 then
+            if v.Name == "Punching bag" and math.random(1, 100) == 1 then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v["Punching bag"].HumanoidRootPart.CFrame
                 found = true
                 break
