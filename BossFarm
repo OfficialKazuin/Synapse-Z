@@ -5,7 +5,7 @@ local LevelFarm = true
 local Target = "Deku"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
-local Highlight = Instance.new("Highlight") Highlight.Name = "Highlight"
+local Highlight = Instance.new("Highlight")
 local AntiAutoClick = game.Players.LocalPlayer.PlayerAntiAutoClick.SaveAntiAutoClick.AntiAutoClick
 local Button = ""
 
