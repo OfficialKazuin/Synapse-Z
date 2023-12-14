@@ -1,12 +1,11 @@
 -- Locals
 
-local LocalPlayer
 local LevelFarm = true
 local Target = "Deku"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
-local AntiAutoClick = game.Players.LocalPlayer.PlayerAntiAutoClick.SaveAntiAutoClick.AntiAutoClick
+local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
 local function tween(part1, part2)
