@@ -1,16 +1,13 @@
-getgenv().LevelFarm = true
-getgenv().MoneyFarm = false
-local NPC = "Deku"
-local Target = nil
-local LocalPlayer = game:GetService("Players").LocalPlayer
-local Highlight = Instance.new("Highlight")
-Highlight.Name = "Highlight"
-local Gui = game.Players.LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
-local Button = ""
+-- Locals
 
-if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
-    game.ReplicatedStorage.PVP:FireServer()
-end
+local LocalPlayer
+local LevelFarm = true
+local Target = "Deku"
+local Character = nil
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Highlight = Instance.new("Highlight") Highlight.Name = "Highlight"
+local AntiAutoClick = game.Players.LocalPlayer.PlayerAntiAutoClick.SaveAntiAutoClick.AntiAutoClick
+local Button = ""
 
 local function tween(part1, part2)
     local tw = game.TweenService:Create(part1, TweenInfo.new((part1.Position - part2.Position).Magnitude / 550), {CFrame = part2})
@@ -19,68 +16,80 @@ local function tween(part1, part2)
 end
 
 local function NewTarget()
-    if getgenv().LevelFarm and Target == nil then
+    if LevelFarm and Character == nil then
         for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
-            if v.Name == NPC then
-                Target = v
+            if v.Name == Target then
+                Character = v
             end
         end
     end
 end
 
-Gui.AntiAutoClickScript.Disabled = true
+-- Checks
 
-for i,v in pairs(Gui.Colors:GetChildren()) do
+if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
+    game.ReplicatedStorage.PVP:FireServer()
+end
+
+if not AntiAutoClick.AntiAutoClickScript.Disabled then
+    AntiAutoClick.AntiAutoClickScript.Disabled = true
+end
+
+for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
     v.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 
+-- Autofarm
+
 while task.wait() do
-    if getgenv().LevelFarm and Target ~= nil and Target:FindFirstChild("Humanoid") and Target:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        if Target.Humanoid.Health ~= 0 then
+    if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        if Character.Humanoid.Health ~= 0 then
             LocalPlayer.Character.HumanoidRootPart.Anchored = false
 
-            workspace.CurrentCamera.CameraSubject = Target
+            workspace.CurrentCamera.CameraSubject = Character
 
-            if not Target.HumanoidRootPart:FindFirstChild("Highlight") then
+            if not Character.HumanoidRootPart:FindFirstChild("Highlight") then
                 local HighlightClone = Highlight:Clone()
-                HighlightClone.Adornee = Target
-                HighlightClone.Parent = Target.HumanoidRootPart
+                HighlightClone.Adornee = Character
+                HighlightClone.Parent = Character.HumanoidRootPart
                 HighlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
                 HighlightClone.Name = "Highlight"
             end
 
-            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Target.HumanoidRootPart.Position)
+            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
             workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
 
-            Target = nil
+            Character = nil
 
             NewTarget()
         end
     else
-        Target = nil
+        Character = nil
 
         NewTarget()
     end
 
-    if Gui.Visible == true then
-        if string.find(Gui.TextFrame.ColorIndicator.Text, "Red") then
+    -- Bypasses the anti afk check
+
+    if AntiAutoClick.Visible == true then
+        if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Red") then
             Button = "R"
-        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Orange") then
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Orange") then
             Button = "O"
-        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Yellow") then
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Yellow") then
             Button = "Y"
-        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Green") then
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Green") then
             Button = "G"
-        elseif string.find(Gui.TextFrame.ColorIndicator.Text, "Blue") then
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Blue") then
             Button = "B"
         end
 
         wait()
 
-        for i,v in pairs(Gui.Colors:GetChildren()) do
+        for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
             if string.find(Button.Text, Button) then
                 v.Position = UDim2.new(0.5, 0, -2.25, 0)
             else
