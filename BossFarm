@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Deku"
+local Target = "Overhaul"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
