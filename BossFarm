@@ -55,7 +55,7 @@ while task.wait() do
                 HighlightClone.Name = "Highlight"
             end
 
-            Character.HumanoidRootPart.CFrame = CFrame.new(2043.27441, 7.85000038, 4044.49292, 0.0175017118, 0, 0.999846935, 0, 1, 0, -0.999846935, 0, 0.0175017118)
+            Character.HumanoidRootPart.Position = Vector3.new(2043.27441, 7.85000038, 4044.49292)
             LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
