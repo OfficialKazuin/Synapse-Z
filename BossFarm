@@ -38,6 +38,10 @@ for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
     v.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 
+if game.PlaceId == 14426865226 then
+    
+end
+
 -- Autofarm
 
 while task.wait() do
@@ -55,8 +59,7 @@ while task.wait() do
                 HighlightClone.Name = "Highlight"
             end
 
-            Character.HumanoidRootPart.Position = Vector3.new(2043.27441, 7.85000038, 4044.49292)
-            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
+            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -50, 0), Character.HumanoidRootPart.Position)
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
