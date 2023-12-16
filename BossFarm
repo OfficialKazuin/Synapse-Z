@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Overhaul"
+local Target = "Mirko"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
@@ -59,7 +59,7 @@ while task.wait() do
                 HighlightClone.Name = "Highlight"
             end
 
-            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -50, 0), Character.HumanoidRootPart.Position)
+            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
