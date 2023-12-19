@@ -1,4 +1,11 @@
+-- Locals
+
+local LevelFarm = true
+local Found = false
 local Punch
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
+local Button = ""
 
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
     if v:FindFirstChild("E") then
@@ -6,17 +13,63 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
     end
 end
 
-game:GetService("RunService").Heartbeat:Connect(function()
+-- Checks
+
+if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
+    game.ReplicatedStorage.PVP:FireServer()
+end
+
+if not AntiAutoClick.AntiAutoClickScript.Disabled then
+    AntiAutoClick.AntiAutoClickScript.Disabled = true
+end
+
+for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
+    v.AnchorPoint = Vector2.new(0.5, 0.5)
+end
+
+if game.PlaceId == 14426865226 then
+    
+end
+
+-- Autofarm
+
+while task.wait() do
     Punch:FireServer()
 
-    local found = false
+    Found = false
     repeat
         for i,v in pairs(game.Workspace["Punching Bags"]:GetChildren()) do
             if v.Name == "Punching bag" and math.random(1, 500) == 1 then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v["Punching bag"].HumanoidRootPart.CFrame
-                found = true
+                LocalPlayer.Character.HumanoidRootPart.CFrame = v["Punching bag"].HumanoidRootPart.CFrame
+                Found = true
                 break
             end
         end
-    until found
-end)
+    until Found
+    
+    -- Bypasses the anti afk check
+
+    if AntiAutoClick.Visible == true then
+        if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Red") then
+            Button = "R"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Orange") then
+            Button = "O"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Yellow") then
+            Button = "Y"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Green") then
+            Button = "G"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Blue") then
+            Button = "B"
+        end
+
+        wait()
+
+        for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
+            if string.find(Button.Text, Button) then
+                v.Position = UDim2.new(0.5, 0, -2.25, 0)
+            else
+                v.Position = UDim2.new(0, 0, 0, 0)
+            end
+        end
+    end
+end
