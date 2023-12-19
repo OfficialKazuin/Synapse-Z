@@ -1,16 +1,19 @@
-getgenv().Autofarm = true
-local Target = nil
+-- Locals
+
+local LevelFarm = true
+local Target = "Weak Villain"
+local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
+local Highlight = Instance.new("Highlight")
+local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
+local Button = ""
+
 local Punch
 
 for i,v in pairs(LocalPlayer.Character:GetChildren()) do
     if v:FindFirstChild("E") then
         Punch = v.E
     end
-end
-
-if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
-    game.ReplicatedStorage.PVP:FireServer()
 end
 
 local function tween(part1, part2)
@@ -20,29 +23,75 @@ local function tween(part1, part2)
 end
 
 local function NewTarget()
-    if getgenv().Autofarm and Target == nil then
+    if LevelFarm and Character == nil then
         for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
-            if v.Name == "Weak Villain" and v.Humanoid.Health ~= 0 then
-                Target = v
+            if v.Name == Target and v.Humanoid.Health ~= 0 then
+                Character = v
             end
         end
     end
 end
 
+-- Checks
+
+if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
+    game.ReplicatedStorage.PVP:FireServer()
+end
+
+if not AntiAutoClick.AntiAutoClickScript.Disabled then
+    AntiAutoClick.AntiAutoClickScript.Disabled = true
+end
+
+for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
+    v.AnchorPoint = Vector2.new(0.5, 0.5)
+end
+
+if game.PlaceId == 14426865226 then
+    
+end
+
+-- Autofarm
+
 while task.wait() do
-    if getgenv().Autofarm and Target ~= nil and Target:FindFirstChild("Humanoid") and Target:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        if Target.Humanoid.Health ~= 0 then
+    if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        if Character.Humanoid.Health ~= 0 then
             Punch:FireServer()
 
             tween(LocalPlayer.Character.HumanoidRootPart, CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -5, 0), Target.HumanoidRootPart.Position))
         else
-            Target = nil
+            Character = nil
 
             NewTarget()
         end
     else
-        Target = nil
+        Character = nil
 
         NewTarget()
+    end
+    
+    -- Bypasses the anti afk check
+
+    if AntiAutoClick.Visible == true then
+        if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Red") then
+            Button = "R"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Orange") then
+            Button = "O"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Yellow") then
+            Button = "Y"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Green") then
+            Button = "G"
+        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Blue") then
+            Button = "B"
+        end
+
+        wait()
+
+        for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
+            if string.find(Button.Text, Button) then
+                v.Position = UDim2.new(0.5, 0, -2.25, 0)
+            else
+                v.Position = UDim2.new(0, 0, 0, 0)
+            end
+        end
     end
 end
