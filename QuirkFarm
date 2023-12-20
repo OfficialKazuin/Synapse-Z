@@ -1,1 +1,70 @@
+-- Locals
 
+local QuirkFarm = true
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local SpinRemote = game:GetService("ReplicatedStorage").Remotes.Spin
+local Spin = "Common" -- Common/Uncommon/Rare
+local Target = nil -- put the wanted quirk id
+local Quirk
+
+for i,v in pairs(game.Workspace:GetChildren()) do
+    if v:IsA("Folder") and v:FindFirstChild("Spin") then
+        Quirk = v.PlayerData
+    end
+end
+
+local Quirks = {
+    HHHC = 1,
+    OFA = 2,
+    Quirkless = 3,
+    ["Zero Gravity"] = 4,
+    Regeneration = 5,
+    Explosion = 6,
+    Electric = 7,
+    ["Warp Gate"] = 8,
+    Gigantification = 9,
+    Voice = 10,
+    ["Air Propulsion"] = 11,
+    ["Shock Absorption"] = 12,
+    DOFA = 13,
+    Hardening = 14,
+    ["Hell Flame"] = 15,
+    Overhaul = 16,
+    Jet = 17,
+    ["Black Hole"] = 18,
+    Cremation = 19,
+    ["Dark Shadow"] = 20,
+    ["Muscle Augmentation"] = 21,
+    Permeation = 22,
+    ["Pop Off"] = 23,
+    Somnambulist = 24,
+    ["Navel Laser"] = 25,
+    Decay = 26,
+    Acid = 27,
+    Creation = 28,
+    Clones = 29,
+    AFO = 30,
+    Tail = 31,
+    Frog = 32,
+    ["Fierce Wings"] = 33,
+    TAFO = 34,
+    Orcinus = 35,
+    Manifest = 36,
+    ["Big Fist"] = 37,
+    Stress = 38,
+    ["#%(!($)&=%&!"] = 39,
+    Mushroom = 40
+}
+
+-- Autofarm
+
+while task.wait() do
+    if QuirkFarm then
+            if Quirk[LocalPlayer.Name].Quirk.Value == Target then
+                QuirkFarm = false
+            else
+                SpinRemote:FireServer(Spin.."Spin")
+            end
+        end
+    end
+end
