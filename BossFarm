@@ -17,7 +17,7 @@ end
 local function NewTarget()
     if LevelFarm and Character == nil then
         for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
-            if v.Name == Target then
+            if string.find(v.Name, Target) then
                 Character = v
             end
         end
