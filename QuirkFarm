@@ -60,11 +60,10 @@ local Quirks = {
 
 while task.wait() do
     if QuirkFarm then
-            if Quirk[LocalPlayer.Name].Quirk.Value == Target then
-                QuirkFarm = false
-            else
-                SpinRemote:FireServer(Spin.."Spin")
-            end
+        if Quirk[LocalPlayer.Name].Quirk.Value == Target then
+            QuirkFarm = false
+        else
+            SpinRemote:FireServer(Spin.."Spin")
         end
     end
 end
