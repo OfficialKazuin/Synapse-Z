@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Weak Villain"
+local Target = "Weak Villain" -- Criminal, Weak Villain, 
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
@@ -25,7 +25,7 @@ end
 local function NewTarget()
     if LevelFarm and Character == nil then
         for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
-            if v.Name == Target and v.Humanoid.Health ~= 0 then
+            if string.find(v.Name, Target) and v.Humanoid.Health ~= 0 then
                 Character = v
             end
         end
