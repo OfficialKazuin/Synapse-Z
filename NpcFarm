@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Weak Villain" -- Criminal, Weak Villain, 
+local Target = "Weak Villain" -- Criminal/Police, Weak Villain/UA Student, Villain/Pro Hero/Weak Nomu/Forest Beast
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
