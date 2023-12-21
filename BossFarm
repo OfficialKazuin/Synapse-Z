@@ -112,7 +112,11 @@ while task.wait() do
         NewTarget()
     end
     
-    -- Bypasses the anti afk check
+    -- Bypasses the anti-afk check
+
+    if AntiAutoClick.AntiAutoClickScript then
+        AntiAutoClick.AntiAutoClickScript.Disabled = true
+    end
 
     if AntiAutoClick.Visible == true then
         if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Red") then
