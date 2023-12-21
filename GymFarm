@@ -1,9 +1,17 @@
 -- Locals
 local LevelFarm = true
-local Punch = game.Players.LocalPlayer.Character:FindFirstChild("E")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
+
+-- Find Punch ability
+local Punch
+for _, child in pairs(LocalPlayer.Character:GetChildren()) do
+    if child:FindFirstChild("E") then
+        Punch = child.E
+        break
+    end
+end
 
 -- Checks
 if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
