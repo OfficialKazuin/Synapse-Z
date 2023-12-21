@@ -26,7 +26,7 @@ end
 -- Checks
 
 game.Players.ChildAdded:Connect(function(v)
-    if v:GetRoleInGroup(3755220) ~= "Member" then
+    if v:IsInGroup(3755220) and v:GetRoleInGroup(3755220) ~= "Member"then
         LocalPlayer:Kick("")
     else
         -- we safe dawg 
