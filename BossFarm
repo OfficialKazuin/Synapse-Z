@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Gigantomachia"
+local Target = "Overhaul"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
@@ -87,6 +87,8 @@ while task.wait() do
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
                 elseif Character.Name == "Gigantomachia" then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -275, 0), Character.HumanoidRootPart.Position)
+                elseif Character.Name == "Overhaul" then
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -150, 0), Character.HumanoidRootPart.Position)
                 else
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
                 end
