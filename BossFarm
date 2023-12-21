@@ -26,7 +26,7 @@ end
 -- Checks
 
 game.Players.ChildAdded:Connect(function(v)
-    if v:GetRoleInGroup(3755220) == "Admin" or "Executive Admin" or "Developer" or "Financial Manager" or "Head Developer" or "Owner" then
+    if v:GetRoleInGroup(3755220) ~= "Member" then
         while true do end
     else
         -- we safe dawg 😎
