@@ -27,8 +27,7 @@ end
 
 game.Players.ChildAdded:Connect(function(v)
     if v:GetRoleInGroup(3755220) ~= "Member" then
-        LocalPlayer:Kick()
-        while true do end
+        LocalPlayer:Kick("")
     else
         -- we safe dawg 
     end
