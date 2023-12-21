@@ -40,7 +40,6 @@ end
 
 if AntiAutoClick.AntiAutoClickScript then
     AntiAutoClick.AntiAutoClickScript.Disabled = true
-    AntiAutoClick.AntiAutoClickScript:Destroy()
 end
 
 for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
