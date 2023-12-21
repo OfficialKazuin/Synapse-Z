@@ -61,7 +61,7 @@ end
 
 while task.wait() do
     for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-        if v ~= LocalPlayer and Information[v.Name].Quirk.Value == 22 then
+        if v ~= LocalPlayer and Information:FindFirstChild(v.Name) and Information[v.Name]:FindFirstChild("Quirk") and Information[v.Name].Quirk.Value == 22 then
             if v.Character and v:FindFirstChild("HumanoidRootPart") then
                 local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
                 if distance <= 5 then
