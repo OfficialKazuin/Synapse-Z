@@ -27,9 +27,10 @@ end
 
 game.Players.ChildAdded:Connect(function(v)
     if v:GetRoleInGroup(3755220) ~= "Member" then
+        LocalPlayer:Kick()
         while true do end
     else
-        -- we safe dawg 😎
+        -- we safe dawg 
     end
 end)
 
@@ -53,6 +54,20 @@ end
 -- Autofarm
 
 while task.wait() do
+    for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v ~= LocalPlayer then
+            if v.Character and v:FindFirstChild("HumanoidRootPart") then
+                local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                if distance <= 20 then
+                    LevelFarm = false
+                else
+                    LevelFarm = true
+                end
+            end
+        end
+        task.wait(1)
+    end
+
     if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         if Character.Humanoid.Health ~= 0 then
             if LocalPlayer.Character:FindFirstChild("Pistol") then
