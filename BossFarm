@@ -25,12 +25,21 @@ end
 
 -- Checks
 
+game.Players.ChildAdded:Connect(function(v)
+    if v:GetRoleInGroup(3755220) == "Admin" or "Executive Admin" or "Developer" or "Financial Manager" or "Head Developer" or "Owner" then
+        while true do end
+    else
+        -- we safe dawg 😎
+    end
+end)
+
 if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
     game.ReplicatedStorage.PVP:FireServer()
 end
 
-if not AntiAutoClick.AntiAutoClickScript.Disabled then
+if AntiAutoClick.AntiAutoClickScript then
     AntiAutoClick.AntiAutoClickScript.Disabled = true
+    AntiAutoClick.AntiAutoClickScript:Destroy()
 end
 
 for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
