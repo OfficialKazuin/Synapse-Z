@@ -4,7 +4,6 @@ local LevelFarm = true
 local Target = "Gigantomachia"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
-local Highlight = Instance.new("Highlight")
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
@@ -51,14 +50,6 @@ while task.wait() do
                 LocalPlayer.Character.HumanoidRootPart.Anchored = false
 
                 workspace.CurrentCamera.CameraSubject = Character
-
-                if not Character.HumanoidRootPart:FindFirstChild("Highlight") then
-                    local HighlightClone = Highlight:Clone()
-                    HighlightClone.Adornee = Character
-                    HighlightClone.Parent = Character.HumanoidRootPart
-                    HighlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                    HighlightClone.Name = "Highlight"
-                end
 
                 LocalPlayer.Character.Main.Swing:FireServer(Character.HumanoidRootPart.CFrame)
 
