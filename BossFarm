@@ -60,11 +60,13 @@ end
 -- Autofarm
 
 while task.wait() do
-    for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
         if v ~= LocalPlayer and Information[v.Name].Quirk.Value == 22 then
             if v.Character and v:FindFirstChild("HumanoidRootPart") then
-                if (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 15 then
+                local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                if distance <= 5 then
                     LevelFarm = false
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(9999, 9999, 9999), Character.HumanoidRootPart.Position))
                 else
                     LevelFarm = true
                 end
