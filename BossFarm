@@ -115,7 +115,7 @@ while task.wait() do
     -- Uses the stat points
 
     if tonumber(LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text) > 0 then
-        game.ReplicatedStorage.Remotes.Strength:FireServer(tonumber(game.Players.LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text))
+        game.ReplicatedStorage.Remotes.Strength:FireServer(tonumber(LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text))
     end
     
     -- Bypasses the anti-afk check
