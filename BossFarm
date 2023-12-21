@@ -56,7 +56,7 @@ while task.wait() do
         if v ~= LocalPlayer then
             if v.Character and v:FindFirstChild("HumanoidRootPart") then
                 local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-                if distance <= 5 then
+                if distance <= 2.5 then
                     LevelFarm = false
                     LocalPlayer.Character.HumanoidRootPart.Anchored = true
                 else
