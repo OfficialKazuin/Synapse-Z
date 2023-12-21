@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Mirko"
+local Target = "Gigantomachia"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
@@ -47,19 +47,33 @@ end
 while task.wait() do
     if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         if Character.Humanoid.Health ~= 0 then
-            LocalPlayer.Character.HumanoidRootPart.Anchored = false
+            if LocalPlayer.Character:FindFirstChild("Pistol") then
+                LocalPlayer.Character.HumanoidRootPart.Anchored = false
 
-            workspace.CurrentCamera.CameraSubject = Character
+                workspace.CurrentCamera.CameraSubject = Character
 
-            if not Character.HumanoidRootPart:FindFirstChild("Highlight") then
-                local HighlightClone = Highlight:Clone()
-                HighlightClone.Adornee = Character
-                HighlightClone.Parent = Character.HumanoidRootPart
-                HighlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                HighlightClone.Name = "Highlight"
+                if not Character.HumanoidRootPart:FindFirstChild("Highlight") then
+                    local HighlightClone = Highlight:Clone()
+                    HighlightClone.Adornee = Character
+                    HighlightClone.Parent = Character.HumanoidRootPart
+                    HighlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                    HighlightClone.Name = "Highlight"
+                end
+
+                LocalPlayer.Character.Main.Swing:FireServer(Character.HumanoidRootPart.CFrame)
+
+                if Character.Name == "Mirko" or "Gigantomachia" then
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
+                else
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
+                end
+            else
+                for i,v in pairs(LocalPlayer.PlayerGui.MainMenus.WeaponsMenu.ScrollingFrame:GetChildren()) do
+                    if v.Name == "Pistol" then
+                        game.ReplicatedStorage.WeaponShop.Equip:FireServer(v.Name)
+                    end
+                end
             end
-
-            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
