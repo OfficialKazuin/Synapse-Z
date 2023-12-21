@@ -60,6 +60,14 @@ end
 -- Autofarm
 
 while task.wait() do
+    if #game:GetService("Players"):GetPlayers()) == 1 then
+        LevelFarm = true
+    elseif #game:GetService("Players"):GetPlayers()) == 2 then
+        LevelFarm = false
+    elseif #game:GetService("Players"):GetPlayers()) > 2 then
+        LevelFarm = true
+    end
+
     for i,v in pairs(game:GetService("Players"):GetPlayers()) do
         if v ~= LocalPlayer and Information:FindFirstChild(v.Name) and Information[v.Name]:FindFirstChild("Quirk") and Information[v.Name].Quirk.Value == 22 then
             if v.Character and v:FindFirstChild("HumanoidRootPart") then
