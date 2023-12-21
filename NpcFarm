@@ -1,39 +1,41 @@
 -- Locals
-
 local LevelFarm = true
-local Target = "Weak Villain" -- Criminal/Police, Weak Villain/UA Student, Villain/Pro Hero/Weak Nomu/Forest Beast
+local Target = "Weak Villain"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Highlight = Instance.new("Highlight")
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
+-- Find Punch ability
 local Punch
-
-for i,v in pairs(LocalPlayer.Character:GetChildren()) do
-    if v:FindFirstChild("E") then
-        Punch = v.E
+for _, child in pairs(LocalPlayer.Character:GetChildren()) do
+    if child:FindFirstChild("E") then
+        Punch = child.E
+        break
     end
 end
 
+-- Function to tween between positions
 local function tween(part1, part2)
     local tw = game.TweenService:Create(part1, TweenInfo.new((part1.Position - part2.Position).Magnitude / 550), {CFrame = part2})
     tw:Play()
     tw.Completed:Wait()
 end
 
+-- Function to find a new target
 local function NewTarget()
     if LevelFarm and Character == nil then
-        for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
-            if string.find(v.Name, Target) and v.Humanoid.Health ~= 0 then
-                Character = v
+        for _, npc in pairs(game.Workspace.NPCs:GetChildren()) do
+            if string.find(npc.Name, Target) and npc.Humanoid.Health ~= 0 then
+                Character = npc
+                break
             end
         end
     end
 end
 
 -- Checks
-
 if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
     game.ReplicatedStorage.PVP:FireServer()
 end
@@ -42,52 +44,47 @@ if not AntiAutoClick.AntiAutoClickScript.Disabled then
     AntiAutoClick.AntiAutoClickScript.Disabled = true
 end
 
-for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
+for _, v in pairs(AntiAutoClick.Colors:GetChildren()) do
     v.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 
-if game.PlaceId == 14426865226 then
-    
-end
-
 -- Autofarm
-
-while task.wait() do
-    if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+while true do
+    if LevelFarm and Character and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         if Character.Humanoid.Health ~= 0 then
             Punch:FireServer()
-
-            tween(LocalPlayer.Character.HumanoidRootPart, CFrame.new(Target.HumanoidRootPart.Position + Vector3.new(0, -5, 0), Target.HumanoidRootPart.Position))
+            tween(LocalPlayer.Character.HumanoidRootPart, CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -5, 0), Character.HumanoidRootPart.Position))
         else
             Character = nil
-
             NewTarget()
         end
     else
         Character = nil
-
         NewTarget()
     end
     
-    -- Bypasses the anti afk check
-
-    if AntiAutoClick.Visible == true then
-        if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Red") then
-            Button = "R"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Orange") then
-            Button = "O"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Yellow") then
-            Button = "Y"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Green") then
-            Button = "G"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Blue") then
-            Button = "B"
+    -- Bypasses the anti-afk check
+    if AntiAutoClick.Visible then
+        local colors = {
+            Red = "R",
+            Orange = "O",
+            Yellow = "Y",
+            Green = "G",
+            Blue = "B"
+        }
+        
+        local button = ""
+        for color, code in pairs(colors) do
+            if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, color) then
+                button = code
+                break
+            end
         end
 
         wait()
 
-        for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
-            if string.find(Button.Text, Button) then
+        for _, v in pairs(AntiAutoClick.Colors:GetChildren()) do
+            if string.find(button, Button) then
                 v.Position = UDim2.new(0.5, 0, -2.25, 0)
             else
                 v.Position = UDim2.new(0, 0, 0, 0)
