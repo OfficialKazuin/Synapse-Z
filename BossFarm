@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Overhaul"
+local Target = "All Might"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
@@ -60,14 +60,6 @@ end
 -- Autofarm
 
 while task.wait() do
-    if #game:GetService("Players"):GetPlayers()) == 1 then
-        LevelFarm = true
-    elseif #game:GetService("Players"):GetPlayers()) == 2 then
-        LevelFarm = false
-        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(9999, 9999, 9999), Character.HumanoidRootPart.Position))
-    elseif #game:GetService("Players"):GetPlayers()) > 2 then
-        LevelFarm = true
-    end
 
     for i,v in pairs(game:GetService("Players"):GetPlayers()) do
         if v ~= LocalPlayer and Information:FindFirstChild(v.Name) and Information[v.Name]:FindFirstChild("Quirk") and Information[v.Name].Quirk.Value == 22 then
@@ -97,7 +89,7 @@ while task.wait() do
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
                 elseif Character.Name == "Gigantomachia" then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -275, 0), Character.HumanoidRootPart.Position)
-                elseif Character.Name == "Overhaul" then
+                elseif Character.Name == "Overhaul" or "All Might 1" then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -150, 0), Character.HumanoidRootPart.Position)
                 else
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
