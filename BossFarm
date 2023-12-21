@@ -58,7 +58,6 @@ while task.wait() do
                 local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
                 if distance <= 2.5 then
                     LevelFarm = false
-                    LocalPlayer.Character.HumanoidRootPart.Anchored = true
                 else
                     LevelFarm = true
                 end
