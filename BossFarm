@@ -64,6 +64,7 @@ while task.wait() do
         LevelFarm = true
     elseif #game:GetService("Players"):GetPlayers() == 2 then
         LevelFarm = false
+        LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SafeZones:FindFirstChildOfClass("Part").CFrame
     elseif #game:GetService("Players"):GetPlayers() > 2 then
         LevelFarm = true
     end
@@ -74,7 +75,7 @@ while task.wait() do
                 local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
                 if distance <= 5 then
                     LevelFarm = false
-                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(9999, 9999, 9999), Character.HumanoidRootPart.Position))
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.SafeZones:FindFirstChildOfClass("Part").CFrame
                 else
                     LevelFarm = true
                 end
