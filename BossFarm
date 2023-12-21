@@ -82,6 +82,7 @@ while task.wait() do
                 workspace.CurrentCamera.CameraSubject = Character
 
                 LocalPlayer.Character.Main.Swing:FireServer(Character.HumanoidRootPart.CFrame)
+                LocalPlayer.Character.Main.RightSwing:FireServer(Character.HumanoidRootPart.CFrame)
 
                 if Character.Name == "Mirko" then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
