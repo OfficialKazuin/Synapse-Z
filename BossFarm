@@ -7,6 +7,16 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
+local Information
+
+for i,v in pairs(game.Workspace:GetChildren()) do
+    if v:IsA("Folder") and v:FindFirstChild("Spin") then
+        Information = v.PlayerData
+    end
+end
+
+if Information[v.Name].Quirk.Value == 22 and then
+
 local function tween(part1, part2)
     local tw = game.TweenService:Create(part1, TweenInfo.new((part1.Position - part2.Position).Magnitude / 550), {CFrame = part2})
     tw:Play()
@@ -52,6 +62,20 @@ end
 -- Autofarm
 
 while task.wait() do
+    for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v ~= LocalPlayer and Information[v.Name].Quirk.Value == 22 then
+            if v.Character and v:FindFirstChild("HumanoidRootPart") then
+                local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                if distance <= 15 then
+                    LevelFarm = false
+                else
+                    LevelFarm = true
+                end
+            end
+        end
+        task.wait(1)
+    end
+
     if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         if Character.Humanoid.Health ~= 0 then
             if LocalPlayer.Character:FindFirstChild("Pistol") then
