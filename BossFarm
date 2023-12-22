@@ -1,7 +1,7 @@
 -- Locals
 
 local LevelFarm = true
-local Target = "Overhaul"
+local Target = "Awakened Tomura"
 local Character = nil
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
