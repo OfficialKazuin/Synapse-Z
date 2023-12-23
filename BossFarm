@@ -1,46 +1,38 @@
 -- Locals
-
 local LevelFarm = true
 local Target = "Awakened Tomura"
 local Character = nil
-local LocalPlayer = game:GetService("Players").LocalPlayer
+local LocalPlayer = game.Players.LocalPlayer
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
 local Information
 
-for i,v in pairs(game.Workspace:GetChildren()) do
-    if v:IsA("Folder") and v:FindFirstChild("Spin") then
-        Information = v.PlayerData
+for _, folder in pairs(game.Workspace:GetChildren()) do
+    if folder:IsA("Folder") and folder:FindFirstChild("Spin") then
+        Information = folder.PlayerData
     end
 end
 
-local function tween(part1, part2)
-    local tw = game.TweenService:Create(part1, TweenInfo.new((part1.Position - part2.Position).Magnitude / 550), {CFrame = part2})
-    tw:Play()
-    tw.Completed:Wait()
-end
-
+-- Function to move to a new target
 local function NewTarget()
     if LevelFarm and Character == nil then
-        for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
-            if string.find(v.Name, Target) then
-                Character = v
+        for _, npc in pairs(game.Workspace.NPCs:GetChildren()) do
+            if string.find(npc.Name, Target) then
+                Character = npc
             end
         end
     end
 end
 
--- Checks
-
-game.Players.ChildAdded:Connect(function(v)
-    if v:IsInGroup(3755220) and v:GetRoleInGroup(3755220) ~= "Member" then
+-- Event for player join
+game.Players.ChildAdded:Connect(function(player)
+    if player:IsInGroup(3755220) and player:GetRoleInGroup(3755220) ~= "Member" then
         LocalPlayer:Kick("")
-    else
-        -- we safe dawg 
     end
 end)
 
+-- PVP setup
 if not LocalPlayer.Character:FindFirstChild("PVPOFF") then
     game.ReplicatedStorage.PVP:FireServer()
 end
@@ -49,38 +41,30 @@ if AntiAutoClick.AntiAutoClickScript then
     AntiAutoClick.AntiAutoClickScript.Disabled = true
 end
 
-for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
-    v.AnchorPoint = Vector2.new(0.5, 0.5)
+-- Set anchor point for colors
+for _, color in pairs(AntiAutoClick.Colors:GetChildren()) do
+    color.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 
-if game.PlaceId == 14426865226 then
-    
-end
-
--- Autofarm
-
+-- Main loop
 while task.wait() do
-    if #game:GetService("Players"):GetPlayers() == 1 then
+    local playerCount = #game.Players:GetPlayers()
+
+    if playerCount == 1 or playerCount > 2 then
         LevelFarm = true
-    elseif #game:GetService("Players"):GetPlayers() == 2 then
+    elseif playerCount == 2 then
         LevelFarm = false
-
-        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Safezones.Gym.Position + Vector3.new(-3, 0, 0), game.Workspace.Safezones.Gym.Position)
-
+        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Safezones.Gym.Position + Vector3.new(-4, 0, 0), game.Workspace.Safezones.Gym.Position)
         workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
-    elseif #game:GetService("Players"):GetPlayers() > 2 then
-        LevelFarm = true
     end
 
-    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-        if v ~= LocalPlayer and Information:FindFirstChild(v.Name) and Information[v.Name]:FindFirstChild("Quirk") and Information[v.Name].Quirk.Value == 22 then
-            if v.Character and v:FindFirstChild("HumanoidRootPart") then
-                local distance = (v.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player ~= LocalPlayer and Information:FindFirstChild(player.Name) and Information[player.Name]:FindFirstChild("Quirk") and Information[player.Name].Quirk.Value == 22 then
+            if player.Character and player:FindFirstChild("HumanoidRootPart") then
+                local distance = (player.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
                 if distance <= 5 then
                     LevelFarm = false
-
-                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Safezones.Gym.Position + Vector3.new(-3, 0, 0), game.Workspace.Safezones.Gym.Position)
-
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Safezones.Gym.Position + Vector3.new(-4, 0, 0), game.Workspace.Safezones.Gym.Position)
                     workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
                 else
                     LevelFarm = true
@@ -89,79 +73,71 @@ while task.wait() do
         end
     end
 
-    if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+    if LevelFarm and Character and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") then
         if Character.Humanoid.Health ~= 0 then
             if LocalPlayer.Character:FindFirstChild("Pistol") then
                 LocalPlayer.Character.HumanoidRootPart.Anchored = false
-
                 workspace.CurrentCamera.CameraSubject = Character
-
                 LocalPlayer.Character.Main.Swing:FireServer(Character.HumanoidRootPart.CFrame)
                 LocalPlayer.Character.Main.RightSwing:FireServer(Character.HumanoidRootPart.CFrame)
-
                 if string.find(Character.Name, "Mirko") then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -300, 0), Character.HumanoidRootPart.Position)
                 elseif string.find(Character.Name, "Gigantomachia") then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -275, 0), Character.HumanoidRootPart.Position)
-                elseif string.find(Character.Name, "Overhaul") or string.find(Character.Name, "All Might") then
+                elseif string.find(Character.Name, "Awakened Tomura") or string.find(Character.Name, "Overhaul") or string.find(Character.Name, "All Might") then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -150, 0), Character.HumanoidRootPart.Position)
                 else
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -175, 0), Character.HumanoidRootPart.Position)
                 end
             else
-                for i,v in pairs(LocalPlayer.PlayerGui.MainMenus.WeaponsMenu.ScrollingFrame:GetChildren()) do
-                    if v.Name == "Pistol" then
-                        game.ReplicatedStorage.WeaponShop.Equip:FireServer(v.Name)
+                for _, weapon in pairs(LocalPlayer.PlayerGui.MainMenus.WeaponsMenu.ScrollingFrame:GetChildren()) do
+                    if weapon.Name == "Pistol" then
+                        game.ReplicatedStorage.WeaponShop.Equip:FireServer(weapon.Name)
                     end
                 end
             end
         else
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
-
             workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
-
             Character = nil
-
             NewTarget()
         end
     else
         Character = nil
-
         NewTarget()
     end
 
-    -- Uses the stat points
-
+    -- Use stat points
     if tonumber(LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text) > 0 then
-        game.ReplicatedStorage.Remotes.Strength:FireServer(tonumber(LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text))
+        game.ReplicatedStorage.Remotes.Strength:FireServer(avalPoints)
     end
-    
-    -- Bypasses the anti-afk check
 
+    -- Bypass anti-afk check
     if AntiAutoClick.AntiAutoClickScript then
         AntiAutoClick.AntiAutoClickScript.Disabled = true
     end
 
-    if AntiAutoClick.Visible == true then
-        if string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Red") then
+    if AntiAutoClick.Visible then
+        local colorIndicatorText = AntiAutoClick.TextFrame.ColorIndicator.Text
+        if string.find(colorIndicatorText, "Red") then
             Button = "R"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Orange") then
+        elseif string.find(colorIndicatorText, "Orange") then
             Button = "O"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Yellow") then
+        elseif string.find(colorIndicatorText, "Yellow") then
             Button = "Y"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Green") then
+        elseif string.find(colorIndicatorText, "Green") then
             Button = "G"
-        elseif string.find(AntiAutoClick.TextFrame.ColorIndicator.Text, "Blue") then
+        elseif string.find(colorIndicatorText, "Blue") then
             Button = "B"
         end
 
         wait()
 
-        for i,v in pairs(AntiAutoClick.Colors:GetChildren()) do
-            if string.find(Button.Text, Button) then
-                v.Position = UDim2.new(0.5, 0, -2.25, 0)
+        for _, color in pairs(AntiAutoClick.Colors:GetChildren()) do
+            if string.find(color.Text, Button) then
+                color.Position = UDim2.new(0.5, 0, -2.25, 0) 
             else
-                v.Position = UDim2.new(0, 0, 0, 0)
+                color.Position = UDim2.new(0, 0, 0, 0)
             end
         end
     end
