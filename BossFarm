@@ -86,8 +86,6 @@ while task.wait() do
     end
 
     if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        setfpscap(10)
-
         if Character.Humanoid.Health ~= 0 then
             if LocalPlayer.Character:FindFirstChild("Pistol") then
                 LocalPlayer.Character.HumanoidRootPart.Anchored = false
@@ -114,8 +112,6 @@ while task.wait() do
                 end
             end
         else
-            setfpscap(999)
-
             LocalPlayer.Character.HumanoidRootPart.Anchored = true
 
             workspace.CurrentCamera.CameraSubject = LocalPlayer.Character
@@ -125,8 +121,6 @@ while task.wait() do
             NewTarget()
         end
     else
-        setfpscap(999)
-
         Character = nil
 
         NewTarget()
