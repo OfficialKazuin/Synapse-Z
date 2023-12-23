@@ -86,7 +86,7 @@ while task.wait() do
     end
 
     if LevelFarm and Character ~= nil and Character:FindFirstChild("Humanoid") and Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        setfpscap(5)
+        setfpscap(10)
 
         if Character.Humanoid.Health ~= 0 then
             if LocalPlayer.Character:FindFirstChild("Pistol") then
