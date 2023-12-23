@@ -106,7 +106,7 @@ while task.wait() do
                 elseif string.find(Character.Name, "Overhaul") or string.find(Character.Name, "All Might") then
                     LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -150, 0), Character.HumanoidRootPart.Position)
                 else
-                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -200, 0), Character.HumanoidRootPart.Position)
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Character.HumanoidRootPart.Position + Vector3.new(0, -175, 0), Character.HumanoidRootPart.Position)
                 end
             else
                 for i,v in pairs(LocalPlayer.PlayerGui.MainMenus.WeaponsMenu.ScrollingFrame:GetChildren()) do
