@@ -108,7 +108,8 @@ while task.wait() do
     end
 
     -- Use stat points
-    if tonumber(LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text) > 0 then
+    local avalPoints = tonumber(LocalPlayer.PlayerGui.MainMenus.StatsPage.AvalPointsFrame.Points.Text)
+    if avalPoints > 0 then
         game.ReplicatedStorage.Remotes.Strength:FireServer(avalPoints)
     end
 
