@@ -3,7 +3,7 @@ local LevelFarm = true
 local Target = "AllForOne"
 local Character = nil
 local LocalPlayer = game.Players.LocalPlayer
-local SpendPointsOn = "Agility"
+local SpendPointsOn = "Durability"
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
