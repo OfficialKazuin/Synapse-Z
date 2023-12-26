@@ -1,6 +1,6 @@
 -- Locals
 local LevelFarm = true
-local Target = "AllForOne"
+local Target = "Overhaul"
 local Character = nil
 local LocalPlayer = game.Players.LocalPlayer
 local SpendPointsOn = "Durability"
