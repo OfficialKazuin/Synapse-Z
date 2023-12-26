@@ -3,7 +3,7 @@ local LevelFarm = true
 local Target = "Overhaul"
 local Character = nil
 local LocalPlayer = game.Players.LocalPlayer
-local SpendPointsOn = "Stamina"
+local SpendPointsOn = "Agility"
 local AntiAutoClick = LocalPlayer.PlayerGui.SaveGui.AntiAutoClick
 local Button = ""
 
